@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Atolye Uretim Listesi · veritabanı</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --marka:#9A6428;
+  --paper:#FAF7F4; --surface:#FFFFFF; --line:#E8E0D8; --line-strong:#CFC3B6;
+  --ink:#1E1A17; --ink-2:#5E554C; --ink-3:#8C8177;
+  --late:#A8382A; --late-bg:#F8E7E3; --late-edge:#C2604F;
+  --today:#8A5A21; --today-bg:#F7EEE1; --today-edge:#C69657;
+  --yeni:#2C6274; --yeni-bg:#E4EFF3; --yeni-edge:#6E9CAB;
+  --ahead:#5E554C; --ahead-bg:#F1EBE4; --ahead-edge:#B6A796;
+  --focus:#1E1A17;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --marka:#D8A070;
+    --paper:#1A1816; --surface:#221F1C; --line:#322D28; --line-strong:#463E37;
+    --ink:#F0EAE3; --ink-2:#A99E93; --ink-3:#7A7168;
+    --late:#E88370; --late-bg:#331C18; --late-edge:#B04B3D;
+    --today:#D8A070; --today-bg:#2E241A; --today-edge:#A8794C;
+    --yeni:#8FBACA; --yeni-bg:#18272D; --yeni-edge:#4C7787;
+    --ahead:#A99E93; --ahead-bg:#241F1B; --ahead-edge:#544A41;
+    --focus:#F0EAE3;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0 auto; max-width:520px; background:var(--paper); color:var(--ink);
+  font-family:Archivo,"Segoe UI",system-ui,sans-serif; -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+[hidden]{display:none !important}
+
+.marka{
+  display:flex; align-items:center; justify-content:center;
+  padding:20px 18px 18px; background:var(--surface); border-bottom:1px solid var(--line);
+}
+.marka img{height:44px; width:auto; display:block}
+.gun{
+  display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+  padding:11px 18px; background:var(--ahead-bg); border-bottom:1px solid var(--line-strong);
+}
+.gun .lb{font-size:11px; font-weight:600; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3)}
+.gun .vl{font-size:15px; font-weight:500; color:var(--ink); white-space:nowrap}
+.bayat{display:flex; gap:11px; align-items:flex-start; padding:13px 18px;
+  background:var(--today-bg); color:var(--today); border-bottom:1px solid var(--today-edge)}
+.bayat.kirmizi{background:var(--late-bg); color:var(--late); border-bottom-color:var(--late-edge)}
+.bayat .ik{font-size:17px; line-height:1.35; flex:none}
+.bayat b{display:block; font-size:14.5px; font-weight:600; line-height:1.35}
+.bayat span{font-size:13px; line-height:1.45; opacity:.85}
+.hd{background:var(--surface); border-bottom:1px solid var(--line); padding:16px 18px 0}
+.hd h1{margin:0; font-size:18px; font-weight:600; letter-spacing:-.01em}
+.hd .sub{margin:3px 0 0; font-size:15px; color:var(--ink-2)}
+.counts{display:flex; margin:14px -18px 0}
+.count{flex:1; padding:10px 14px 12px; border-top:3px solid var(--line); display:flex; flex-direction:column; gap:1px}
+.count b{font-size:26px; font-weight:600; line-height:1; letter-spacing:-.02em}
+.count span{font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3)}
+.c-late{border-top-color:var(--late-edge)} .c-late b{color:var(--late)}
+.c-today{border-top-color:var(--today-edge)} .c-today b{color:var(--today)}
+.c-all{border-top-color:var(--ahead-edge)}
+
+.grp{display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; padding:20px 18px 8px;
+  font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase}
+.grp{flex-direction:column; align-items:flex-start; gap:3px}
+.grp .ust{display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
+.grp .n{font-size:17px; font-weight:500; letter-spacing:-.01em; text-transform:none; color:var(--ink)}
+.grp .yr{
+  font-size:13.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase;
+  padding:3px 10px; border-radius:3px;
+}
+.grp .cnt{font-size:12.5px; font-weight:400; text-transform:none; color:var(--ink-3)}
+.kutu{
+  margin:18px 14px 8px; border:1.5px solid var(--yeni-edge); border-radius:8px;
+  background:var(--yeni-bg); overflow:hidden;
+}
+.kutu .grp{padding:14px 16px 10px}
+.kutu .rows .row{background:transparent; border-top:1px solid var(--yeni-edge); border-right:0}
+.kutu .rows .row:last-child{border-bottom:0}
+.g-late{color:var(--late)} .g-today{color:var(--today)}
+.g-ahead{color:var(--ink-2)} .g-yeni{color:var(--yeni)}
+.g-late .yr{background:var(--late-bg); color:var(--late)}
+.g-today .yr{background:var(--today-bg); color:var(--today)}
+.g-ahead .yr{background:var(--ahead-bg); color:var(--ahead)}
+.g-yeni .yr{
+  background:transparent; color:var(--yeni); font-size:16px; font-weight:600;
+  letter-spacing:.07em; display:inline-flex; align-items:center; gap:9px; padding:0;
+}
+.g-yeni .yr .kiv{width:16px; height:16px; flex:none; fill:currentColor}
+
+.row{display:flex; align-items:center; gap:13px; width:100%; background:var(--surface);
+  border:0; border-top:1px solid var(--line); border-right:3px solid transparent;
+  padding:12px 15px 12px 18px; cursor:pointer; font-family:inherit; color:inherit; text-align:left}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row:active{background:var(--ahead-bg)}
+.row:focus-visible{outline:2px solid var(--focus); outline-offset:-2px}
+.r-late{border-right-color:var(--late-edge)}
+.r-today{border-right-color:var(--today-edge)}
+.r-ahead{border-right-color:var(--ahead-edge)}
+.r-yeni{border-right-color:var(--yeni-edge)}
+.d-yeni{background:var(--yeni-bg); color:var(--yeni)}
+.c-yeni{border-top-color:var(--yeni-edge)} .c-yeni b{color:var(--yeni)}
+.sw{width:26px; height:26px; border-radius:50%; flex:none; border:1px solid rgba(0,0,0,.18)}
+.rc{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px}
+.rt{display:flex; align-items:baseline; gap:8px}
+.rt .no{font-size:15px; font-weight:600}
+.rt .sku{font-size:13px; color:var(--ink-2)}
+.rd{font-size:12.5px; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rd .eks{color:var(--late); font-weight:600}
+.chev{color:var(--ink-3); font-size:15px; flex:none}
+.warn{width:8px; height:8px; border-radius:50%; background:var(--late); flex:none}
+
+.back{display:flex; align-items:center; gap:9px; width:100%; background:var(--surface);
+  border:0; border-bottom:1px solid var(--line-strong); padding:15px 18px;
+  font-family:inherit; font-size:16px; font-weight:500; color:var(--ink);
+  cursor:pointer; text-align:left; position:sticky; top:0; z-index:5}
+.back .ar{font-size:20px; line-height:1; color:var(--ink-2)}
+.gal{border-bottom:1px solid var(--line); background:var(--ahead-bg); position:relative}
+.gal::before{content:"fotoğraf yükleniyor"; position:absolute; inset:0; display:flex;
+  align-items:center; justify-content:center; font-size:12.5px; color:var(--ink-3); letter-spacing:.04em}
+.gal img{width:100%; aspect-ratio:1/1; object-fit:cover; display:block; position:relative}
+.gal img[data-yuk="yok"]{display:none}
+.drv{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  margin:14px 18px 0; padding:15px 16px; border-radius:6px;
+  background:var(--today-bg); border:1.5px solid var(--marka);
+  text-decoration:none; color:var(--marka);
+}
+.drv:active{background:var(--marka); color:var(--paper)}
+.drv b{font-size:16px; font-weight:600}
+.drv .go{font-size:18px}
+.drv .ik{font-size:19px; line-height:1}
+.drvalt{margin:7px 18px 0; font-size:12.5px; color:var(--ink-3); text-align:center}
+.dhead{padding:18px 18px 14px; display:flex; align-items:center; gap:14px}
+.dhead .sw{width:38px; height:38px}
+.dhead h2{margin:0; font-size:25px; font-weight:600; letter-spacing:-.02em; line-height:1.1}
+.dhead p{margin:3px 0 0; font-size:14px; color:var(--ink-2)}
+.due{margin:0 18px 16px; padding:13px 15px; border-radius:4px; display:flex; flex-direction:column; gap:3px}
+.due .lb{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase}
+.due .vl{font-size:26px; font-weight:600; letter-spacing:-.02em; line-height:1.1}
+.due .yr{font-size:15px; font-weight:500; margin-top:2px}
+.d-late{background:var(--late-bg); color:var(--late)}
+.d-today{background:var(--today-bg); color:var(--today)}
+.d-ahead{background:var(--ahead-bg); color:var(--ahead)}
+.spec{margin:0 18px; border-top:1px solid var(--line)}
+.spec div{display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+  padding:11px 0; border-bottom:1px solid var(--line)}
+.spec dt{font-size:13px; color:var(--ink-2)}
+.spec dd{margin:0; font-size:14px; text-align:right}
+.spec dd.renk{display:flex; align-items:center; gap:8px; justify-content:flex-end; font-weight:500}
+.spec dd.renk .sw{width:20px; height:20px}
+.spec dd .yok{
+  color:var(--late); background:var(--late-bg); font-weight:600;
+  padding:2px 9px; border-radius:3px; font-size:13px; letter-spacing:.02em;
+}
+.note{margin:16px 18px 0; padding:12px 14px; border-radius:4px;
+  background:var(--late-bg); color:var(--late); font-size:14px; line-height:1.5; font-weight:500}
+.ft{padding:26px 18px 34px; color:var(--ink-3); font-size:11.5px; line-height:1.7; border-top:1px solid var(--line)}
+#view-detail{padding-bottom:34px}
+</style>
+</head>
+<body>
+
+<div id="view-list">
+  <div class="marka"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAk4AAACVCAYAAACuP3UwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAylpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDEwLjAtYzAwMCA3OS5kMjBlNDY2MzAsIDIwMjUvMTIvMDktMDI6MTE6MjMgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyNy44IChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjFFREE2REQxODE2NDExRjE4NjdBREE4RTQwRDU4RjMwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjFFREE2REQyODE2NDExRjE4NjdBREE4RTQwRDU4RjMwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MUVEQTZEQ0Y4MTY0MTFGMTg2N0FEQThFNDBENThGMzAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MUVEQTZERDA4MTY0MTFGMTg2N0FEQThFNDBENThGMzAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5NCuIfAAAr8klEQVR4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" alt="Golditude"></div>
+  <div class="gun">
+    <span class="lb">Son güncelleme</span>
+    <span class="vl mono" id="uretildi"></span>
+  </div>
+  <div class="bayat" id="bayat" hidden></div>
+  <header class="hd">
+    <h1>Üretim listesi</h1>
+    <p class="sub"><span class="mono" id="bugun"></span> &middot; <span id="toplam"></span></p>
+    <div class="counts">
+      <div class="count c-yeni"><b class="mono" id="s-yeni">0</b><span>yeni</span></div>
+      <div class="count c-late"><b class="mono" id="s-late">0</b><span>gecikti</span></div>
+      <div class="count c-today"><b class="mono" id="s-today">0</b><span>bugün</span></div>
+      <div class="count c-all"><b class="mono" id="s-next">0</b><span>sonraki</span></div>
+    </div>
+  </header>
+  <main id="groups"></main>
+  <p class="ft">
+    Bu ekran yalnızca üretim bilgisi taşır. Müşteri adı, adres ve fiyat bilgisi burada yer almaz.
+  </p>
+</div>
+
+<div id="view-detail" hidden>
+  <button class="back" id="btn-back" type="button"><span class="ar" aria-hidden="true">&larr;</span> Uretim listesine don</button>
+  <div id="d-shot"></div>
+  <div id="d-body"></div>
+</div>
+
+<script id="veri" type="application/json">{"uretildi": "2026-09-23T01:12+03:00", "kalemler": [{"kalem": "86", "sku": "P340V21", "gauge": "16G / 5mm bar", "olcu": "5mm bar boyu", "tas": "Natural Diamond", "tas_olcu": "", "renk": "14K sarı", "notu": "", "durum": "Teslim Bekliyor", "teslim": "2026-09-23", "yarim": "öğleden önce", "aile": "P340", "klasor": "https://drive.google.com/drive/folders/1LsSEtseoDt1XdxiynOgAPObbixNeWep1", "kapak": "https://drive.google.com/thumbnail?id=1hN1mb1dEbGiE3p61CPGvXkeIuEclQIaR&sz=w1200"}, {"kalem": "87", "sku": "", "gauge": "", "olcu": "", "tas": "Lab Diamond", "tas_olcu": "", "renk": "14K beyaz", "notu": "Kilit kısmı 18G kalınlıkta olacak. Taşların her biri ise 1.50'şer mm olacak. Yani taşlı kısmı kilit kısmından kalın olacak. · SİPARİŞTE YOK, TEYİT EDİLMELİ: SKU, gauge, ölçü", "durum": "Teslim Bekliyor", "teslim": "2026-09-23", "yarim": "öğleden sonra", "aile": "", "klasor": "", "kapak": ""}, {"kalem": "90", "sku": "P352V21", "gauge": "16G / 5mm bar", "olcu": "5mm bar boyu", "tas": "Natural Diamond", "tas_olcu": "", "renk": "14K sarı", "notu": "", "durum": "Teslim Bekliyor", "teslim": "2026-09-23", "yarim": "öğleden önce", "aile": "P352", "klasor": "https://drive.google.com/drive/folders/1Usf6ujRRY1r99DjbEAReHHk5adKnhPsZ", "kapak": "https://drive.google.com/thumbnail?id=11WGgRUGZ--ppBTAE7Q5sszXobnP3ffLM&sz=w1200"}, {"kalem": "90/2", "sku": "P352V21", "gauge": "16G / 5mm bar", "olcu": "5mm bar boyu", "tas": "Natural Diamond", "tas_olcu": "", "renk": "14K sarı", "notu": "", "durum": "Teslim Bekliyor", "teslim": "2026-09-23", "yarim": "öğleden önce", "aile": "P352", "klasor": "https://drive.google.com/drive/folders/1Usf6ujRRY1r99DjbEAReHHk5adKnhPsZ", "kapak": "https://drive.google.com/thumbnail?id=11WGgRUGZ--ppBTAE7Q5sszXobnP3ffLM&sz=w1200"}, {"kalem": "91", "sku": "P031V10", "gauge": "16G (1.2mm)", "olcu": "14mm", "tas": "CZ", "tas_olcu": "", "renk": "14K sarı", "notu": "", "durum": "Teslim Bekliyor", "teslim": "2026-09-24", "yarim": "öğleden sonra", "aile": "P031", "klasor": "https://drive.google.com/drive/folders/1wvl-kiLan8ubuTXql1dMb0WyCuYQi-qn", "kapak": "https://drive.google.com/thumbnail?id=1kjijIhaea_ZGsOfL0oJoBIUQKkqBfR8V&sz=w1200"}, {"kalem": "92", "sku": "P311V38", "gauge": "16G / 6mm bar", "olcu": "6mm bar boyu", "tas": "Moissanite", "tas_olcu": "4,10mm", "renk": "14K sarı", "notu": "", "durum": "Teslim Bekliyor", "teslim": "2026-09-23", "yarim": "öğleden önce", "aile": "P311", "klasor": "https://drive.google.com/drive/folders/1cTl6yfgy7-LIT6nN0Lvn0SQc5O6Me3HY", "kapak": "https://drive.google.com/thumbnail?id=1KOK51_wc05gihPARzdd8Fi6eSeu2GhT1&sz=w1200"}, {"kalem": "92/2", "sku": "P352V06", "gauge": "16G / 6mm bar", "olcu": "6mm bar boyu", "tas": "Moissanite", "tas_olcu": "", "renk": "14K sarı", "notu": "", "durum": "Teslim Bekliyor", "teslim": "2026-09-23", "yarim": "öğleden önce", "aile": "P352", "klasor": "https://drive.google.com/drive/folders/1Usf6ujRRY1r99DjbEAReHHk5adKnhPsZ", "kapak": "https://drive.google.com/thumbnail?id=11WGgRUGZ--ppBTAE7Q5sszXobnP3ffLM&sz=w1200"}, {"kalem": "92/3", "sku": "P346V06", "gauge": "16G / 6mm bar", "olcu": "6mm bar boyu", "tas": "", "tas_olcu": "", "renk": "14K sarı", "notu": "SİPARİŞTE YOK, TEYİT EDİLMELİ: taş", "durum": "Teslim Bekliyor", "teslim": "2026-09-23", "yarim": "öğleden önce", "aile": "P346", "klasor": "https://drive.google.com/drive/folders/1RMU5Y4ya4vCVai1AfJJI2nsN_NnOjuNv", "kapak": "https://drive.google.com/thumbnail?id=18EDLC9cQcV4rQgmB7F3Ym8SUpHSJusmF&sz=w1200"}, {"kalem": "93", "sku": "P031V38", "gauge": "18G (1.0mm)", "olcu": "11mm", "tas": "Lab Diamond", "tas_olcu": "", "renk": "14K sarı", "notu": "", "durum": "Teslim Bekliyor", "teslim": "2026-09-24", "yarim": "öğleden sonra", "aile": "P031", "klasor": "https://drive.google.com/drive/folders/1wvl-kiLan8ubuTXql1dMb0WyCuYQi-qn", "kapak": "https://drive.google.com/thumbnail?id=1kjijIhaea_ZGsOfL0oJoBIUQKkqBfR8V&sz=w1200"}, {"kalem": "94", "sku": "P007V06", "gauge": "16G (1.2mm)", "olcu": "iç çap 6mm", "tas": "—", "tas_olcu": "", "renk": "14K sarı", "notu": "", "durum": "Teslim Bekliyor", "teslim": "2026-09-24", "yarim": "öğleden önce", "aile": "P007", "klasor": "https://drive.google.com/drive/folders/1VMnpEhDqhhJo8CTqMfgtOTD2wzm9xTTw", "kapak": "https://drive.google.com/thumbnail?id=1hus-SRUqSaJy0VKrQ0YntJj20BTGbh6A&sz=w1200"}, {"kalem": "95", "sku": "P031V01", "gauge": "18G (1.0mm)", "olcu": "6mm", "tas": "Lab Diamond", "tas_olcu": "", "renk": "14K sarı", "notu": "", "durum": "Teslim Bekliyor", "teslim": "2026-09-28", "yarim": "öğleden sonra", "aile": "P031", "klasor": "https://drive.google.com/drive/folders/1wvl-kiLan8ubuTXql1dMb0WyCuYQi-qn", "kapak": "https://drive.google.com/thumbnail?id=1kjijIhaea_ZGsOfL0oJoBIUQKkqBfR8V&sz=w1200"}]}</script>
+<script>
+const METAL = {"14K sarı":"#D4AF37","14K beyaz":"#CDD1D4","14K rose":"#DBA48D"};
+const AY = ["ocak","şubat","mart","nisan","mayıs","haziran","temmuz","ağustos","eylül","ekim","kasım","aralık"];
+const GUN = ["pazar","pazartesi","salı","çarşamba","perşembe","cuma","cumartesi"];
+const D = JSON.parse(document.getElementById("veri").textContent);
+
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sw = renk => `<span class="sw" style="background:${METAL[renk] || "#9AA39D"}"></span>`;
+const kucult = u => String(u || "").replace(/sz=w\d+/, "sz=w800");
+const YOK = '<span class="yok">bilgi yok</span>';
+
+// Liste satırındaki özet: boş alanlar atlanır, eksik varsa uyarı eklenir
+function satirOzet(k){
+  // Bar'li uruende gauge zaten "18G / 8mm bar" yaziyor; olcuyu ayrica
+  // gostermek satiri tasiriyor ve tas bilgisini kirpiyordu. Listede atlanir,
+  // detay panelinde ikisi de durur.
+  const barTekrar = /bar/i.test(k.gauge || "") && /bar boyu$/i.test(k.olcu || "");
+  const p = [k.gauge, barTekrar ? "" : k.olcu].filter(Boolean);
+  if(k.tas && k.tas !== "—") p.push(k.tas + (k.tas_olcu ? " " + k.tas_olcu : ""));
+  const eksik = !k.gauge || !k.olcu || !k.tas || !k.renk;
+  return p.map(esc).join(" &middot; ") + (eksik ? ' <b class="eks">bilgi eksik</b>' : "");
+}
+
+// Logodaki kıvılcım — "yeni" işareti
+const KIVILCIM = '<svg class="kiv" viewBox="0 0 24 24" aria-hidden="true">'
+  + '<path d="M12,1.5 C12.7,7.8 16.2,11.3 22.5,12 C16.2,12.7 12.7,16.2 12,22.5'
+  + ' C11.3,16.2 7.8,12.7 1.5,12 C7.8,11.3 11.3,7.8 12,1.5 Z"/></svg>';
+
+
+function gun0(d){ const x = new Date(d); x.setHours(0,0,0,0); return x; }
+const BUGUN = gun0(new Date());
+function fark(iso){ if(!iso) return null; return Math.round((gun0(new Date(iso+"T00:00:00")) - BUGUN) / 86400000); }
+function tarihYaz(iso){ if(!iso) return ""; const d = new Date(iso+"T00:00:00");
+  return d.getDate() + " " + AY[d.getMonth()]; }
+function etiket(f){
+  if(f === null) return ["yeni siparişler","yeni"];
+  if(f < 0) return [f === -1 ? "dun gecikti" : (-f) + " gun gecikti","late"];
+  if(f === 0) return ["bugun","today"];
+  if(f === 1) return ["yarin","ahead"];
+  return [new Date(BUGUN.getTime()+f*86400000).getDay() === 0 ? "pazar" : GUN[new Date(BUGUN.getTime()+f*86400000).getDay()],"ahead"];
+}
+
+function liste(){
+  const gruplar = new Map();
+  let late=0, today=0, next=0, yeni=0;
+  for(const k of D.kalemler){
+    const f = fark(k.teslim);
+    const [lb, cls] = etiket(f);
+    if(cls === "late") late++;
+    else if(cls === "today") today++;
+    else if(cls === "yeni") yeni++;
+    else next++;
+    const anahtar = (k.teslim || "yok") + "|" + (k.yarim || "");
+    if(!gruplar.has(anahtar)) gruplar.set(anahtar,
+      {lb, cls, tarih: tarihYaz(k.teslim), yarim: k.yarim || "", satir: []});
+    gruplar.get(anahtar).satir.push({...k, cls});
+  }
+  document.getElementById("s-yeni").textContent = yeni;
+  document.getElementById("s-late").textContent = late;
+  document.getElementById("s-today").textContent = today;
+  document.getElementById("s-next").textContent = next;
+  document.getElementById("toplam").textContent = D.kalemler.length + " parça bekliyor";
+  const b = new Date();
+  document.getElementById("bugun").textContent = b.getDate()+" "+AY[b.getMonth()]+" "+GUN[b.getDay()];
+  const u = new Date(D.uretildi);
+  document.getElementById("uretildi").textContent = isNaN(u)
+    ? D.uretildi.replace("T", " ").slice(0, 16)
+    : `${u.getDate()} ${AY[u.getMonth()]} · ${String(u.getHours()).padStart(2,"0")}:${String(u.getMinutes()).padStart(2,"0")}`;
+
+  document.getElementById("groups").innerHTML = [...gruplar.values()].map(g =>
+    (g.cls === "yeni" ? `<div class="kutu">` : "") +
+    `<h2 class="grp g-${g.cls}"><span class="ust">` +
+    (g.cls === "yeni"
+      ? `<span class="yr">${KIVILCIM}${esc(g.lb)}</span>`
+      : esc(g.lb) +
+        (g.tarih ? `<span class="n mono">${esc(g.tarih)}</span>` : "") +
+        (g.yarim ? `<span class="yr">${esc(g.yarim)}</span>` : "")) + `</span>` +
+    `<span class="cnt">${g.satir.length} parça</span></h2><div class="rows">` +
+    g.satir.map(k =>
+      `<button class="row r-${k.cls}" type="button" data-k="${esc(k.kalem)}">${sw(k.renk)}` +
+      `<span class="rc"><span class="rt"><span class="no mono">${esc(k.kalem)}</span>` +
+      `<span class="sku mono">${esc(k.sku)}</span></span>` +
+      `<span class="rd">${satirOzet(k)}</span></span>` +
+      (k.notu ? `<span class="warn"></span>` : "") +
+      `<span class="chev" aria-hidden="true">&rsaquo;</span></button>`).join("") +
+    `</div>` + (g.cls === "yeni" ? `</div>` : "")
+  ).join("");
+}
+
+function detay(no, gecmiseEkle){
+  const k = D.kalemler.find(x => x.kalem === no);
+  if(!k) return;
+  // Telefonun geri tuşu siteden çıkmasın diye geçmişe kayıt bırakıyoruz
+  if(gecmiseEkle !== false) history.pushState({k: no}, "", "#" + encodeURIComponent(no));
+  const f = fark(k.teslim), [lb, cls] = etiket(f);
+  document.getElementById("d-shot").innerHTML =
+    (k.kapak ? `<div class="gal"><img src="${esc(kucult(k.kapak))}" alt="${esc(k.sku)}"></div>` : "") +
+    (k.klasor ? `<a class="drv" href="${esc(k.klasor)}" target="_blank" rel="noopener">` +
+      `<span class="ik" aria-hidden="true">&#128247;</span><b>Tüm fotoğrafları aç</b>` +
+      `<span class="go" aria-hidden="true">&rarr;</span></a>` +
+      `<p class="drvalt">${esc(k.aile)} klasörü &middot; Google Drive'da açılır</p>` : "");
+  document.getElementById("d-body").innerHTML =
+    `<div class="dhead">${sw(k.renk)}<div><h2 class="mono">${esc(k.kalem)}</h2>` +
+    `<p class="mono">${esc(k.sku)}</p></div></div>` +
+    `<div class="due d-${cls}"><span class="lb">${k.teslim ? (cls === "late" ? "teslim tarihi geçti" : (cls === "today" ? "bugün teslim" : "teslim tarihi")) : "teslim tarihi"}</span>` +
+    `<span class="vl mono">${k.teslim ? esc(tarihYaz(k.teslim)) : "üreticiden bekleniyor"}</span>` +
+    (k.yarim ? `<span class="yr">${esc(k.yarim)}</span>` : "") + `</div>` +
+    `<dl class="spec">` +
+    `<div><dt>Gauge</dt><dd class="mono">${k.gauge ? esc(k.gauge) : YOK}</dd></div>` +
+    `<div><dt>Ölçü</dt><dd class="mono">${k.olcu ? esc(k.olcu) : YOK}</dd></div>` +
+    `<div><dt>Taş</dt><dd>${k.tas ? esc(k.tas) : YOK}</dd></div>` +
+    (k.tas_olcu
+      ? `<div><dt>Taş ölçüsü</dt><dd class="mono">${esc(k.tas_olcu)}</dd></div>`
+      : "") +
+    `<div><dt>Renk</dt>${k.renk
+        ? `<dd class="renk">${sw(k.renk)}${esc(k.renk)}</dd>`
+        : `<dd>${YOK}</dd>`}</div></dl>` +
+    (k.notu ? `<p class="note">${esc(k.notu)}</p>` : "");
+  document.getElementById("view-list").hidden = true;
+  document.getElementById("view-detail").hidden = false;
+  window.scrollTo(0,0);
+}
+
+function listeyiGoster(){
+  document.getElementById("view-detail").hidden = true;
+  document.getElementById("view-list").hidden = false;
+  window.scrollTo(0,0);
+}
+
+// Ekrandaki geri düğmesi de tarayıcı geçmişini kullanır ki ikisi ayrışmasın
+function geri(){
+  if(history.state && history.state.k) history.back();
+  else listeyiGoster();
+}
+
+window.addEventListener("popstate", e => {
+  if(e.state && e.state.k) detay(e.state.k, false);
+  else listeyiGoster();
+});
+
+function bayatlik(){
+  const el = document.getElementById("bayat");
+  const u = new Date(D.uretildi);
+  if(isNaN(u)) return;
+  const saat = (Date.now() - u.getTime()) / 3600000;
+  if(saat < 24) return;
+  const gun = Math.floor(saat / 24);
+  const ne = gun === 1 ? "dün" : gun + " gün önce";
+  const kirmizi = gun >= 3;
+  el.className = "bayat" + (kirmizi ? " kirmizi" : "");
+  el.innerHTML = `<span class="ik" aria-hidden="true">${kirmizi ? "&#9888;" : "&#9432;"}</span>` +
+    `<span><b>Bu liste ${ne} güncellendi.</b>` +
+    `<span>${kirmizi
+      ? "Aradan zaman geçti — yeni siparişler ve değişiklikler bu listede olmayabilir. Devam etmeden önce sorun."
+      : "O tarihten sonra gelen siparişler burada görünmüyor olabilir."}</span></span>`;
+  el.hidden = false;
+}
+
+liste();
+bayatlik();
+
+// Adreste #kalem varsa (paylaşılan link) doğrudan o kalemi aç
+const ilkKalem = decodeURIComponent(location.hash.slice(1));
+if(ilkKalem && D.kalemler.some(k => k.kalem === ilkKalem)){
+  history.replaceState(null, "", location.pathname);
+  detay(ilkKalem, true);
+}
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-k]");
+  if(t) detay(t.dataset.k);
+});
+document.getElementById("btn-back").addEventListener("click", geri);
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape" && !document.getElementById("view-detail").hidden) geri();
+});
+</script>
+</body>
+</html>
